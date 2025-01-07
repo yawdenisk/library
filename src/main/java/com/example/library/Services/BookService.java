@@ -7,6 +7,7 @@ import com.example.library.Repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -35,5 +36,9 @@ public class BookService {
         oldBook.setDescription(book.getDescription());
         oldBook.setPrice(book.getPrice());
         bookRepository.save(oldBook);
+    }
+
+    public List<Book> getAll() {
+        return bookRepository.findAll();
     }
 }

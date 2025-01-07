@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -14,6 +15,10 @@ import java.util.UUID;
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Author>> getAll() {
+        return ResponseEntity.ok(authorService.getAll());
+    }
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getAuthor(@PathVariable UUID id) {
         Author author = authorService.getAuthor(id).orElseThrow(() -> new AuthorNotFoundException());

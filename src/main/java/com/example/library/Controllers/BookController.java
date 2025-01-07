@@ -8,6 +8,8 @@ import com.example.library.Services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -17,6 +19,10 @@ public class BookController {
     private BookService bookService;
     @Autowired
     private AuthorService authorService;
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Book>> getAll() {
+        return ResponseEntity.ok(bookService.getAll());
+    }
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getBook(@PathVariable UUID id) {
         Book book = bookService.getBook(id).orElseThrow(() -> new BookNotFoundException());
