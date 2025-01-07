@@ -28,4 +28,7 @@ public class Author {
     @OneToMany(mappedBy = "author")
     @JsonBackReference
     private List<Book> books = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "library_id")
+    private Library library;
 }
