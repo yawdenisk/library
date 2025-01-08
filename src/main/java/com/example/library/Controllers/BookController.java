@@ -1,8 +1,10 @@
 package com.example.library.Controllers;
 
 import com.example.library.Entities.Book;
+import com.example.library.Entities.BookResponce;
 import com.example.library.Handler.AuthorNotFoundException;
 import com.example.library.Handler.BookNotFoundException;
+import com.example.library.Mapper.BookMapper;
 import com.example.library.Services.AuthorService;
 import com.example.library.Services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class BookController {
     private BookService bookService;
     @Autowired
     private AuthorService authorService;
+    @Autowired
+    private BookMapper bookMapper;
     @GetMapping("/getAll")
     public ResponseEntity<List<Book>> getAll() {
         return ResponseEntity.ok(bookService.getAll());
@@ -26,6 +30,7 @@ public class BookController {
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getBook(@PathVariable UUID id) {
         Book book = bookService.getBook(id).orElseThrow(() -> new BookNotFoundException());
+        BookResponce bookResponce = bookMapper.BookToBookResponce(book);
         return ResponseEntity.ok(book);
     }
     @PostMapping("/add")

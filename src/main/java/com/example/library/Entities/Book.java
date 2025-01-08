@@ -29,7 +29,6 @@ public class Book {
     private Author author;
     @Column(nullable = false)
     private Float price;
-    @Column(nullable = false)
     @ManyToOne
     @JoinColumn(name = "library_id")
     private Library library;
