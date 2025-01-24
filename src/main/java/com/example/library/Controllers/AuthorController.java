@@ -2,15 +2,21 @@
 
     import com.example.library.Entities.Author;
     import com.example.library.Entities.AuthorResponce;
+    import com.example.library.Entities.Book;
+    import com.example.library.Entities.BookResponce;
     import com.example.library.Handler.AuthorNotFoundException;
     import com.example.library.Mapper.AuthorMapper;
+    import com.example.library.Mapper.BookMapper;
     import com.example.library.Services.AuthorService;
+    import com.example.library.Services.BookService;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.*;
 
+    import java.util.ArrayList;
     import java.util.List;
     import java.util.UUID;
+    import java.util.stream.Collectors;
 
     @RestController
     @RequestMapping("/author")
@@ -19,9 +25,18 @@
         private AuthorService authorService;
         @Autowired
         private AuthorMapper authorMapper;
+        @Autowired
+        private BookMapper bookMapper;
         @GetMapping("/getAll")
-        public ResponseEntity<List<Author>> getAll() {
-            return ResponseEntity.ok(authorService.getAll());
+        public ResponseEntity<List<AuthorResponce>> getAll() {
+            List<Author> authors = authorService.getAll();
+            List<AuthorResponce> authorResponces = new ArrayList<>();
+            for (Author author : authors) {
+                AuthorResponce authorResponce = authorMapper.AuthorToAuthorResponce(author);
+                authorResponce.setBooks(author.getBooks().stream().map(book -> bookMapper.BookToBookResponce(book)).collect(Collectors.toList()));
+                authorResponces.add(authorResponce);
+            }
+            return ResponseEntity.ok(authorResponces);
         }
         @GetMapping("/get/{id}")
         public ResponseEntity<?> getAuthor(@PathVariable UUID id) {
