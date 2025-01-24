@@ -1,7 +1,5 @@
 package com.example.library.Entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +23,6 @@ public class Book {
     private String description;
     @ManyToOne
     @JoinColumn(name = "author_id")
-    @JsonManagedReference
     private Author author;
     @Column(nullable = false)
     private Float price;

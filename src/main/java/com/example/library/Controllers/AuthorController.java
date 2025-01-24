@@ -27,7 +27,7 @@
         public ResponseEntity<?> getAuthor(@PathVariable UUID id) {
             Author author = authorService.getAuthor(id).orElseThrow(() -> new AuthorNotFoundException());
             AuthorResponce authorResponce = authorMapper.AuthorToAuthorResponce(author);
-            return ResponseEntity.ok(author);
+            return ResponseEntity.ok(authorResponce);
         }
         @PostMapping("/add")
         public ResponseEntity<?> addAuthor(@RequestBody Author author) {
@@ -35,7 +35,7 @@
                 authorService.addAuthor(author);
                 return ResponseEntity.ok("Author added successfully");
             } catch (Exception e) {
-                return ResponseEntity.badRequest().body(e.getMessage());
+                return ResponseEntity.badRequest().body("Error while adding author");
             }
         }
         @PutMapping("/update/{id}")
@@ -44,7 +44,7 @@
                 authorService.updateAuthor(id, author);
                 return ResponseEntity.ok("Author updated successfully");
             } catch (Exception e) {
-                return ResponseEntity.badRequest().body(e.getMessage());
+                return ResponseEntity.badRequest().body("Error while updating author");
             }
         }
         @DeleteMapping("/delete/{id}")
@@ -53,7 +53,7 @@
                 authorService.deleteAuthor(id);
                 return ResponseEntity.ok("Author deleted successfully");
             }catch (Exception e) {
-                return ResponseEntity.badRequest().body(e.getMessage());
+                return ResponseEntity.badRequest().body("Error deleting author");
             }
         }
     }

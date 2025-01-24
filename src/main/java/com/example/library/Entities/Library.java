@@ -1,9 +1,6 @@
 package com.example.library.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,8 +19,8 @@ public class Library {
     @Id
     @UuidGenerator
     private UUID id;
+    @Column(nullable = false)
+    private String name;
     @OneToMany(mappedBy = "library")
     private List<Book> books = new ArrayList<>();
-    @OneToMany(mappedBy = "library")
-    private List<Author> authors = new ArrayList<>();
 }

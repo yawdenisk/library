@@ -1,6 +1,5 @@
 package com.example.library.Services;
 
-import com.example.library.Entities.Author;
 import com.example.library.Entities.Book;
 import com.example.library.Handler.BookNotFoundException;
 import com.example.library.Repositories.BookRepository;

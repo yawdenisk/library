@@ -10,6 +10,4 @@ import java.util.List;
 public class AuthorResponce {
     private String name;
     private String surname;
-    private List<BookResponce> books = new ArrayList<>();
-    private Library library;
 }

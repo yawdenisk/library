@@ -1,7 +1,5 @@
 package com.example.library.Entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,15 +18,11 @@ import java.util.UUID;
 public class Author {
     @Id
     @UuidGenerator
-    private UUID authorId;
+    private UUID id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private String surname;
     @OneToMany(mappedBy = "author")
-    @JsonBackReference
     private List<Book> books = new ArrayList<>();
-    @ManyToOne
-    @JoinColumn(name = "library_id")
-    private Library library;
 }
